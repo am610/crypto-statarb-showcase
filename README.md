@@ -1,6 +1,7 @@
 # Statistical Arbitrage in Cryptocurrencies
 
 **Live interactive showcase:** https://am610.github.io/crypto-statarb-showcase/
+**Terrain v2 (zoomable map):** https://am610.github.io/crypto-statarb-showcase/terrain/
 
 An end-to-end quantitative research project: building, testing, and honestly
 evaluating a statistical arbitrage system across liquid cryptocurrencies
