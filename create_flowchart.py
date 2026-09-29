@@ -152,7 +152,7 @@ ax.text(
     color='#ffffff', fontsize=19, fontweight='bold', ha='center', va='top'
 )
 ax.text(
-    0.5, 0.932, "From Raw Tick Data to Market-Neutral Multi-Alpha Execution (The Wall Street Quants)",
+    0.5, 0.932, "From Raw Bar Data to Market-Neutral Multi-Alpha Systematic Execution",
     color='#94a3b8', fontsize=12, ha='center', va='top'
 )
 

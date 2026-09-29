@@ -1,5 +1,5 @@
 # Statistical Arbitrage in Cryptocurrencies: A Quantitative Research Lab
-### The Wall Street Quants Capstone Project
+### Institutional Research Project
 
 ![Python](https://img.shields.io/badge/Python-3.10%2B-blue.svg)
 ![Strategy](https://img.shields.io/badge/Strategy-Statistical%20Arbitrage-brightgreen.svg)

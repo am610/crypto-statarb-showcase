@@ -2,7 +2,7 @@
 """
 =============================================================================
 Personal & Public Web Portfolio Scanner
-WSQ Crypto StatArb Framework
+Institutional Statistical Arbitrage & Risk Engine
 =============================================================================
 Run locally:
     python3 app.py
@@ -415,7 +415,7 @@ HTML_TEMPLATE = """
   </main>
 
   <footer class="mt-16 text-center text-xs text-slate-500 pb-8">
-    <p>Quantitative Crypto Research Lab • Wall Street Quants Portfolio Engine</p>
+    <p>Quantitative Crypto Research Laboratory • Statistical Arbitrage & Risk Engine</p>
   </footer>
 
   <script>

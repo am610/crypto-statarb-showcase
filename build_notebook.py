@@ -39,7 +39,7 @@ def add_code(content):
 
 # --- TITLE & EXECUTIVE OVERVIEW ---
 add_md("""# Statistical Arbitrage in Cryptocurrencies: A Quantitative Research Lab
-### Course Capstone Project — The Wall Street Quants
+### Institutional Quantitative Research Project
 **Author:** Quantitative Research Candidate  
 **Topic:** Cross-Sectional Momentum, Volume-Conditioned Reversal, Execution Friction, and Multi-Alpha Portfolio Optimization
 

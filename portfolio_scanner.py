@@ -2,7 +2,7 @@
 """
 =============================================================================
 Personal Crypto Quantitative Portfolio Scanner & Rebalancer
-WSQ Crypto StatArb Framework
+Institutional Quantitative Framework
 =============================================================================
 Features:
 1. 21-Day Lagged Cross-Sectional Momentum (skips recent 4h microstructure noise).

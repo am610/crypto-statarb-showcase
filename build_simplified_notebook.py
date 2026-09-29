@@ -39,7 +39,7 @@ def add_code(content):
 
 # --- TITLE ---
 add_md("""# Statistical Arbitrage in Cryptocurrencies: Step-by-Step Educational Lab
-### The Wall Street Quants Capstone Project — Transparent Code Edition
+### Institutional Quantitative Research Lab — Systematic Trading Framework
 **Purpose:** Every calculation is broken down into simple, self-explanatory steps with clear variable names and detailed line-by-line comments.
 
 ---
