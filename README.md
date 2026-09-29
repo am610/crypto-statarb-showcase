@@ -72,25 +72,25 @@ At each rebalance timestamp $t$ across $N=10$ liquid assets:
 1. Compute alpha signal $S_{i,t}$.
 2. Cross-sectionally rank: $r_{i,t} = \text{rank}(S_{i,t})$.
 3. Demean to ensure dollar neutrality ($\sum_i \tilde{w}_{i,t} = 0$):
-   $$\tilde{w}_{i,t} = r_{i,t} - \frac{1}{N} \sum_{j=1}^N r_{j,t}$$
+   $\tilde{w}_{i,t} = r_{i,t} - \frac{1}{N} \sum_{j=1}^N r_{j,t}$
 4. Normalize to enforce unit gross leverage ($\sum_i |w_{i,t}| = 1.0$):
-   $$w_{i,t} = \frac{\tilde{w}_{i,t}}{\sum_{j=1}^N |\tilde{w}_{j,t}|}$$
+   $w_{i,t} = \frac{\tilde{w}_{i,t}}{\sum_{j=1}^N |\tilde{w}_{j,t}|}$
 5. Portfolio returns at $t+1$ (strictly avoiding lookahead bias):
-   $$R_{\text{strat}, t+1} = \sum_{i=1}^N w_{i,t} R_{i, t+1} = \sum_{i=1}^N w_{i, t-1}^{\text{shifted}} R_{i, t}$$
+   $R_{\text{strat}, t+1} = \sum_{i=1}^N w_{i,t} R_{i, t+1} = \sum_{i=1}^N w_{i, t-1}^{\text{shifted}} R_{i, t}$
 
 ### 2. Alpha Signals
 * **Volume-Conditioned Reversal (Alpha 1):**
-  $$S_{\text{Rev}, i, t} = -R_{i,t} \times (1.0 + \max(Z_{V, i, t}, 0))$$
+  $S_{\text{Rev}, i, t} = -R_{i,t} \times (1.0 + \max(Z_{V, i, t}, 0))$
   where $Z_{V, i, t}$ is the 36-bar rolling $Z$-score of quote volume.
 * **Lagged Momentum (Alpha 2):**
-  $$S_{\text{Mom}, i, t} = \frac{1}{K} \sum_{k=1}^K R_{i, t-k} = \text{ret.shift(1).rolling(K).mean()}$$
+  $S_{\text{Mom}, i, t} = \frac{1}{K} \sum_{k=1}^K R_{i, t-k} = \text{ret.shift(1).rolling(K).mean()}$
   with $K = 126$ bars (21 days) and 24-hour rebalancing.
 
 ### 3. Execution & Transaction Cost Modeling
 Two-way turnover at each bar:
-$$\text{Turnover}_t = \sum_{i=1}^N |w_{i,t} - w_{i, t-1}|$$
+$\text{Turnover}_t = \sum_{i=1}^N |w_{i,t} - w_{i, t-1}|$
 Net return accounting for transaction cost $C$:
-$$R_{\text{net}, t} = R_{\text{gross}, t} - (\text{Turnover}_t \times C)$$
+$R_{\text{net}, t} = R_{\text{gross}, t} - (\text{Turnover}_t \times C)$
 * Aggressive Market Orders: $C = 20\text{ bps}$ ($0.0020$)
 * Passive Limit Orders: $C = 7\text{ bps}$ ($0.0007$)
 
