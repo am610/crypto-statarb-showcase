@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>The Quant & Trading Dictionary</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+<style>
+  :root {
+    --bg: #ffffff;
+    --text: #1f2328;
+    --primary: #0969da;
+    --card-bg: #f6f8fa;
+    --border: #d0d7de;
+    --code-bg: #f6f8fa;
+  }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+    color: var(--text);
+    background-color: #fdfdfd;
+    margin: 0;
+    padding: 0;
+  }
+  .container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 30px 40px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  }
+  h1 { color: #1f2328; border-bottom: 2px solid var(--border); padding-bottom: 12px; font-size: 28px; }
+  h2 { color: #24292f; border-bottom: 1px solid var(--border); padding-bottom: 8px; margin-top: 32px; font-size: 22px; }
+  h3 { color: #0969da; margin-top: 28px; font-size: 18px; }
+  .callout {
+    background: #e7f5ff;
+    border-left: 4px solid #339af0;
+    padding: 12px 16px;
+    border-radius: 4px;
+    color: #1971c2;
+    margin: 16px 0;
+    font-size: 14.5px;
+  }
+  code {
+    background-color: var(--code-bg);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+    font-size: 13.5px;
+    color: #b0183e;
+    border: 1px solid #e1e4e8;
+  }
+  pre {
+    background: #24292f;
+    color: #f6f8fa;
+    padding: 16px;
+    border-radius: 6px;
+    overflow-x: auto;
+    font-size: 13.5px;
+  }
+  pre code {
+    background: none;
+    color: #f6f8fa;
+    border: none;
+    padding: 0;
+  }
+  li.bullet {
+    margin-bottom: 6px;
+  }
+  hr {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 30px 0;
+  }
+  .search-box {
+    width: 100%;
+    padding: 12px 16px;
+    font-size: 16px;
+    border: 2px solid #0969da;
+    border-radius: 6px;
+    margin-bottom: 24px;
+    box-sizing: border-box;
+    outline: none;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <input type="text" id="searchInput" class="search-box" placeholder="🔍 Search any term (e.g. leverage, liquidation, beta, liquidity)...">
+  <div id="content">
+    <h1>The Quant & Trading Dictionary (Living Knowledge Base)</h1>
+<blockquote class='callout'>A growing reference guide for quantitative finance, market microstructure, and algorithmic trading concepts. Designed for quick lookup, deep intuition, and interview preparation.</blockquote>
+<br/>
+<hr/>
+<br/>
+<h2>Table of Contents</h2>
+<p>1. [Quantitative Hedge Fund](#1-quantitative-hedge-fund)</p>
+<p>2. [Equities](#2-equities)</p>
+<p>3. [High-Leverage Perpetual Contracts](#3-high-leverage-perpetual-contracts)</p>
+<p>4. [Liquidity](#4-liquidity)</p>
+<p>5. [Statistical Arbitrage (StatArb)](#5-statistical-arbitrage-statarb)</p>
+<p>6. [Cascading Margin Liquidations (The "Fire Sale")](#6-cascading-margin-liquidations-the-fire-sale)</p>
+<p>7. [Institutional Capital Reallocation](#7-institutional-capital-reallocation)</p>
+<p>8. [Fundamentals](#8-fundamentals)</p>
+<p>9. [Dollar-Neutral](#9-dollar-neutral)</p>
+<p>10. [Cross-Sectional (XS)](#10-cross-sectional-xs)</p>
+<p>11. [Rebalance](#11-rebalance)</p>
+<p>12. [Asset](#12-asset)</p>
+<p>13. [Gross Leverage](#13-gross-leverage)</p>
+<p>14. [Market Exposure (Beta)](#14-market-exposure-beta)</p>
+<p>15. [Order Flow Imbalance](#15-order-flow-imbalance)</p>
+<p>16. [Market Maker Inventory Risk](#16-market-maker-inventory-risk)</p>
+<p>17. [Forced Liquidations](#17-forced-liquidations)</p>
+<p>18. [Fama-French / Carhart UMD (Up Minus Down)](#18-fama-french--carhart-umd-up-minus-down)</p>
+<br/>
+<hr/>
+<br/>
+<h3 id='1-quantitative-hedge-fund'>1. Quantitative Hedge Fund</h3>
+<li class='bullet'><strong>Plain English:</strong> An investment firm that manages money using mathematical models, statistical algorithms, and automated computer code rather than human emotion, intuition, or gut feelings.</li>
+<li class='bullet'><strong>How It Operates:</strong></li>
+<p>  <em> <strong>Discretionary Trader:</strong> Reads news, speaks to company executives, looks at charts, and says: </em>"I think Bitcoin will go up because the Federal Reserve cut interest rates."*</p>
+<p>  <em> <strong>Quantitative Trader (Quant):</strong> Analyzes historical price and volume data using Python, detects a statistically significant edge (e.g., </em>"When coin A drops 3 standard deviations on high volume, it mean-reverts 72% of the time over the next 4 hours"*), and builds algorithms to systematically trade that edge.</p>
+<li class='bullet'><strong>Famous Quant Funds:</strong> Renaissance Technologies (Medallion Fund), Citadel, Two Sigma, Millennium, DE Shaw, Point72 (Cubist), WorldQuant.</li>
+<br/>
+<hr/>
+<br/>
+<h3 id='2-equities'>2. Equities</h3>
+<li class='bullet'><strong>Plain English:</strong> Shares of ownership in a public corporation (commonly known as "stocks").</li>
+<li class='bullet'><strong>How It Works:</strong> When you buy 1 share of Apple (<code>AAPL</code>) or Microsoft (<code>MSFT</code>), you legally own a fractional slice of that company's future earnings, cash flows, assets, and voting rights.</li>
+<li class='bullet'><strong>Contrast with Crypto:</strong> Crypto tokens are <strong>not</strong> equity shares; they do not represent legal corporate ownership. They are decentralized network tokens, digital commodities, or governance rights. Furthermore, equities trade ~6.5 hours a day on weekdays with pre/post-market closes, whereas crypto trades <strong>24/7/365 without pause</strong>.</li>
+<br/>
+<hr/>
+<br/>
+<h3 id='3-high-leverage-perpetual-contracts-perps'>3. High-Leverage Perpetual Contracts ("Perps")</h3>
+<li class='bullet'><strong>Plain English:</strong> The dominant derivative contract in crypto. It allows traders to speculate on whether a crypto asset will go up or down using borrowed money—<strong>without ever owning the underlying token</strong> and <strong>without an expiration date</strong> (unlike traditional futures that expire monthly).</li>
+<li class='bullet'><strong>How Leverage Works:</strong></li>
+<p>  * <strong>1x (No Leverage):</strong> You put down \$1,000 to buy \$1,000 of Bitcoin. If BTC drops 10%, your portfolio is worth \$900.</p>
+<p>  * <strong>20x Leverage:</strong> You put down \$1,000 as collateral (margin) to control <strong>\$20,000</strong> of Bitcoin.</p>
+<p>  * <strong>The Fatal Trap:</strong> If Bitcoin drops just <strong>5%</strong>, your \$20,000 position loses \$1,000. Your entire collateral is wiped out! The exchange immediately seizes your position and liquidates it.</p>
+<br/>
+<hr/>
+<br/>
+<h3 id='4-liquidity'>4. Liquidity</h3>
+<li class='bullet'><strong>Plain English:</strong> How easily, quickly, and cheaply you can buy or sell an asset <strong>without significantly changing its market price</strong>.</li>
+<li class='bullet'><strong>Analogy:</strong> Exchanging a \$100 bill for five \$20 bills is 100% liquid (instant, zero cost). Selling an antique painting or a house is highly <em>illiquid</em> (it takes months, negotiation, and high fees to find a buyer).</li>
+<li class='bullet'><strong>In Trading:</strong></li>
+<p>  * <strong>High Liquidity:</strong> <code>BTCUSDT</code> has hundreds of millions of dollars in the order book. Buying \$100,000 of BTC moves the market by less than 0.01%.</p>
+<p>  * <strong>Low Liquidity (Illiquid):</strong> A tiny altcoin with only \$10,000 in the order book. Trying to buy \$10,000 will blast the market price up 25% against yourself (<strong>slippage</strong>).</p>
+<li class='bullet'><strong>In Our Project:</strong> We deliberately selected the <strong>top 10 liquid coins</strong> (<code>BTC</code>, <code>ETH</code>, <code>SOL</code>, etc.) to ensure our simulated trades could realistically execute without catastrophic slippage.</li>
+<br/>
+<hr/>
+<br/>
+<h3 id='5-statistical-arbitrage-statarb'>5. Statistical Arbitrage (StatArb)</h3>
+<li class='bullet'><strong>Plain English:</strong> A quantitative trading strategy that identifies temporary relative price mispricings between correlated assets and bets on their statistical tendency to return to equilibrium.</li>
+<li class='bullet'><strong>Pure Arbitrage vs. Statistical Arbitrage:</strong></li>
+<p>  * <strong>Pure Arbitrage (Risk-Free):</strong> Buying Bitcoin on Coinbase for \$60,000 and selling it on Binance for \$60,050 at the exact same second. Guaranteed \$50 profit with zero market risk.</p>
+<p>  * <strong>Statistical Arbitrage (Probabilistic):</strong> You buy an asset that has temporarily crashed too far and short an asset that has surged too high. You are not guaranteed to win every single trade, but across hundreds of trades, the law of large numbers provides a reliable mathematical edge.</p>
+<br/>
+<hr/>
+<br/>
+<h3 id='6-cascading-margin-liquidations-the-fire-sale'>6. Cascading Margin Liquidations (The "Fire Sale")</h3>
+<li class='bullet'><strong>Plain English:</strong> A violent domino effect where leveraged traders getting liquidated trigger further price drops, which in turn liquidates even more traders.</li>
+<li class='bullet'><strong>How the Waterfall Happens:</strong></li>
+<p>  1. Bitcoin drops 3% unexpectedly.</p>
+<p>  2. Highly leveraged traders (e.g., 50x and 20x) breach their margin limits.</p>
+<p>  3. The exchange's automated risk engine seizes their accounts and sends <strong>aggressive market sell orders</strong> into the order book to close the positions.</p>
+<p>  4. These massive sell orders exhaust available buy orders, pushing the price down another 4%.</p>
+<p>  5. This second crash now liquidates the 10x traders, triggering another wave of emergency selling.</p>
+<li class='bullet'><strong>Why This Creates Alpha:</strong> These liquidation sell orders are <strong>uninformed</strong>—the exchange is not selling because it thinks Bitcoin is bad; it is forced by code to sell at any price! Once the liquidation waterfall finishes, the artificial selling pressure abruptly stops, and the price <strong>mean-reverts violently back up</strong>.</li>
+<li class='bullet'><strong>In Our Project:</strong> This is the exact economic foundation of <strong>Alpha 1 (Volume-Conditioned Reversal)</strong>!</li>
+<br/>
+<hr/>
+<br/>
+<h3 id='7-institutional-capital-reallocation'>7. Institutional Capital Reallocation</h3>
+<li class='bullet'><strong>Plain English:</strong> Large institutional market participants (hedge funds, ETF issuers, venture capital treasuries, family offices) moving millions or billions of dollars from one asset into another.</li>
+<li class='bullet'><strong>How It Causes Momentum:</strong> Unlike a retail trader who buys \$500 in one click, an institution allocating \$300,000,000 into Solana cannot buy it all at once without causing massive slippage. They use execution algorithms (like TWAP/VWAP) to buy small clips every hour for several days or weeks.</li>
+<li class='bullet'><strong>The Result:</strong> This steady, persistent buying pressure produces <strong>positive autocorrelation (trend / momentum)</strong> over 1-day to 3-week horizons.</li>
+<li class='bullet'><strong>In Our Project:</strong> This is the economic foundation of <strong>Alpha 2 (Cross-Sectional Momentum)</strong>!</li>
+<br/>
+<hr/>
+<br/>
+<h3 id='8-fundamentals'>8. Fundamentals</h3>
+<li class='bullet'><strong>Plain English:</strong> The real-world operational, economic, and financial drivers of an asset's intrinsic value.</li>
+<li class='bullet'><strong>In Equities:</strong> Corporate quarterly earnings, revenue growth, profit margins, balance sheet debt, cash flows, and P/E ratio.</li>
+<li class='bullet'><strong>In Crypto:</strong> Active on-chain addresses, Total Value Locked (TVL), protocol revenue from transaction fees, staking yield, developer commits, and active users.</li>
+<li class='bullet'><strong>Quant vs. Fundamental:</strong> Fundamental investors ask: <em>"Is Solana undervalued relative to its fee revenue?"</em> Quants ask: <em>"What are the statistical probability distributions of Solana's 21-day cross-sectional returns relative to other coins?"</em></li>
+<br/>
+<hr/>
+<br/>
+<h3 id='9-dollar-neutral'>9. Dollar-Neutral</h3>
+<li class='bullet'><strong>Plain English:</strong> A portfolio designed so that the total dollar value of your <strong>Long</strong> positions (bets on prices going up) exactly equals the total dollar value of your <strong>Short</strong> positions (bets on prices going down).</li>
+<li class='bullet'><strong>The Formula:</strong></li>
+<p>  $$\text{Net Exposure} = \sum_{i=1}^N w_i = \text{Long Weights} - \text{Short Weights} = 0.0$$</p>
+<li class='bullet'><strong>Why Hedge Funds Love It:</strong> If the entire crypto market crashes 30% overnight:</li>
+<p>  * Your Longs lose 30%.</p>
+<p>  * Your Shorts gain 30%.</p>
+<p>  <em> <strong>Net market P&L = 0%!</strong> You are immune to broad market crashes. You only make money on the </em>relative spread* (whether your Longs outperform your Shorts).</p>
+<li class='bullet'><strong>In Our Code:</strong> We "demean" cross-sectional ranks to force the weights to sum to zero:</li>
+<p>  <code></code>`python</p>
+<p>  demeaned = ranked.subtract(ranked.mean(axis=1), axis=0)</p>
+<p>  <code></code>`</p>
+<br/>
+<hr/>
+<br/>
+<h3 id='10-cross-sectional-xs'>10. Cross-Sectional (XS)</h3>
+<li class='bullet'><strong>Plain English:</strong> Comparing a group of assets <strong>against each other at the exact same snapshot in time</strong>, rather than tracking a single asset over historical time.</li>
+<li class='bullet'><strong>Time-Series vs. Cross-Sectional:</strong></li>
+<p>  <em> <strong>Time-Series (TS):</strong> Looking at </em>Bitcoin alone* over the last 30 days. Is Bitcoin above its 30-day moving average?</p>
+<p>  <em> <strong>Cross-Sectional (XS):</strong> Looking at </em>all 10 coins at 4:00 PM today*. Which coin performed the best? Which coin performed the worst?</p>
+<li class='bullet'><strong>In Our Code:</strong></li>
+<p>  <code></code>`python</p>
+<p>  # Ranking across all coins at timestamp t (axis=1)</p>
+<p>  ranked = signal.rank(axis=1)</p>
+<p>  <code></code>`</p>
+<p>  We buy the top-ranked coins (relative winners) and short the bottom-ranked coins (relative losers).</p>
+<br/>
+<hr/>
+<br/>
+<h3 id='11-rebalance'>11. Rebalance</h3>
+<li class='bullet'><strong>Plain English:</strong> Periodically adjusting your portfolio's actual positions back to your mathematical model's target weights.</li>
+<li class='bullet'><strong>Why We Do It:</strong> As prices fluctuate, winning positions grow too large and losing positions shrink. Rebalancing sells portions of winners and buys more of targets to maintain your exact risk limits and dollar neutrality.</li>
+<li class='bullet'><strong>The Cost-Turnover Dilemma:</strong> Rebalancing requires executing trades. Every trade incurs transaction costs (commissions + slippage).</li>
+<p>  * Rebalancing every 4 hours generates excessive turnover ($> 1,500\times$/year), which destroys profits.</p>
+<p>  * Rebalancing <strong>daily (every 24 hours)</strong> cuts turnover by over 85%, allowing momentum to remain profitable net of fees!</p>
+<br/>
+<hr/>
+<br/>
+<h3 id='12-asset'>12. Asset</h3>
+<li class='bullet'><strong>Plain English:</strong> Any resource of economic value that can be purchased, held, and sold for cash.</li>
+<li class='bullet'><strong>Examples:</strong> A stock (<code>AAPL</code>), a fiat currency (<code>USD</code>), a commodity (Gold), or a cryptocurrency (<code>BTC</code>).</li>
+<li class='bullet'><strong>In Our Code:</strong> Each column in our price DataFrame (<code>df_px</code>) is an individual asset.</li>
+<br/>
+<hr/>
+<br/>
+<h3 id='13-gross-leverage'>13. Gross Leverage</h3>
+<li class='bullet'><strong>Plain English:</strong> The total size of all active positions in your portfolio (both longs and shorts added together as positive numbers), expressed as a multiple of your account equity.</li>
+<li class='bullet'><strong>The Formula:</strong></li>
+<p>  $$\text{Gross Leverage} = \sum_{i=1}^N |w_i|$$</p>
+<li class='bullet'><strong>Example:</strong></li>
+<p>  * You have \$1,000,000 in trading capital.</p>
+<p>  * You buy \$500,000 worth of <code>ETH</code> (Long, $+0.5$).</p>
+<p>  * You short \$500,000 worth of <code>SOL</code> (Short, $-0.5$).</p>
+<p>  * <strong>Net Exposure:</strong> $+0.5 + (-0.5) = 0.0$ (Dollar-Neutral).</p>
+<p>  * <strong>Gross Leverage:</strong> $|+0.5| + |-0.5| = 1.0$ (1x Leverage: \$1,000,000 total invested capital).</p>
+<li class='bullet'><strong>In Our Code:</strong> We normalize demeaned ranks by dividing by the sum of absolute values:</li>
+<p>  <code></code>`python</p>
+<p>  weights = demeaned.divide(demeaned.abs().sum(axis=1), axis=0)</p>
+<p>  <code></code>`</p>
+<br/>
+<hr/>
+<br/>
+<h3 id='14-market-exposure-beta'>14. Market Exposure (Beta)</h3>
+<li class='bullet'><strong>Plain English:</strong> The degree to which your portfolio's returns depend on the overall direction of the general market benchmark.</li>
+<li class='bullet'><strong>Analogy:</strong> "A rising tide lifts all boats, and an outgoing tide strands them." If you simply buy and hold Bitcoin, you have <strong>100% market exposure</strong> ($\beta = 1.0$)—if crypto crashes 60%, you crash 60%.</li>
+<li class='bullet'><strong>Beta ($\beta$):</strong> A regression coefficient measuring sensitivity to the benchmark:</li>
+<p>  * $\beta = 1.0$: You move in lockstep with the crypto market.</p>
+<p>  * $\beta = 0.0$: You have <strong>zero market exposure</strong>. Whether Bitcoin goes to \$1,000,000 or drops to zero, your portfolio is mathematically insulated.</p>
+<li class='bullet'><strong>In Our Project:</strong> Single-index factor regression confirms our strategy has a <strong>Beta of 0.00 to Bitcoin</strong>, proving our returns are pure <strong>Alpha</strong> (manager skill / market-neutral edge).</li>
+<br/>
+<hr/>
+<br/>
+<hr/>
+<br/>
+<h3 id='15-order-flow-imbalance-ofi'>15. Order Flow Imbalance (OFI)</h3>
+<li class='bullet'><strong>Plain English:</strong> A situation where the volume of aggressive market BUY orders significantly exceeds aggressive market SELL orders (or vice versa) within a specific time window.</li>
+<li class='bullet'><strong>How It Works in the Order Book:</strong></li>
+<p>  * Passive traders place <strong>Limit Orders</strong> (bids to buy, asks to sell) waiting in the order book.</p>
+<p>  * Aggressive traders execute <strong>Market Orders</strong> (taking liquidity immediately).</p>
+<p>  * When a sudden wave of aggressive market sell orders floods the market, they rapidly consume all available bids at the top of the book. </p>
+<p>  * If there are not enough buyers waiting, the price must plunge lower to find the next willing buyer.</p>
+<li class='bullet'><strong>Why It Matters for StatArb (Mean Reversion):</strong> Order flow imbalance often reflects temporary, non-fundamental liquidity demand (e.g., a large fund liquidating quickly or a cluster of retail stop-losses). Once this one-sided wave of orders stops, the imbalance vanishes, and price naturally rebounds toward fair value.</li>
+<br/>
+<hr/>
+<br/>
+<h3 id='16-market-maker-inventory-risk'>16. Market Maker Inventory Risk</h3>
+<li class='bullet'><strong>Plain English:</strong> The financial danger that professional liquidity providers (market makers) face when they accumulate a large, unwanted stockpile of an asset whose price is actively falling (or rising).</li>
+<li class='bullet'><strong>The Market Maker's Job:</strong> Market makers continuously quote both a <strong>Bid</strong> (to buy) and an <strong>Ask</strong> (to sell), aiming to profit from the spread without taking a directional bet.</li>
+<li class='bullet'><strong>The Problem (Adverse Selection):</strong></li>
+<p>  * During a market sell-off, aggressive sellers hit the market maker's bids over and over.</p>
+<p>  * The market maker is forced to absorb these sells, accumulating a massive <strong>"Long Inventory"</strong> in a crashing asset.</p>
+<p>  * If the price continues dropping, the market maker suffers heavy mark-to-market losses on this inventory.</p>
+<li class='bullet'><strong>The Defense Mechanism (Why This Drives Reversal):</strong></li>
+<p>  1. To protect themselves, market makers immediately <strong>lower their bids</strong> and <strong>widen their spreads</strong> (stepping away from the market), causing the price to temporarily crash further.</p>
+<p>  2. Once the panic subsides, market makers find themselves holding too much inventory. To rebalance their books, they mark up prices to offload their holdings at a profit.</p>
+<p>  3. This inventory management dynamic is a primary structural driver of <strong>short-term price reversal</strong> (1h to 8h).</p>
+<br/>
+<hr/>
+<br/>
+<h3 id='17-forced-liquidations'>17. Forced Liquidations</h3>
+<li class='bullet'><strong>Plain English:</strong> Automated, non-negotiable emergency sell (or buy) orders executed by an exchange's risk management software when a leveraged trader runs out of collateral.</li>
+<li class='bullet'><strong>Step-by-Step Breakdown:</strong></li>
+<p>  1. <strong>Entering the Trade:</strong> A trader puts up \$1,000 as collateral and opens a \$10,000 position on 10x leverage in Bitcoin perpetual futures.</p>
+<p>  2. <strong>The Price Moves Against Them:</strong> Bitcoin drops by 9%. The position loses \$900.</p>
+<p>  3. <strong>The Margin Call / Liquidation Threshold:</strong> The trader's remaining equity drops below the exchange's "maintenance margin" requirement.</p>
+<p>  4. <strong>The Execution:</strong> The exchange does not ask permission or wait for the trader to deposit more cash. Its automated risk engine instantly seizes the account and executes an <strong>aggressive market sell order</strong> for the entire \$10,000 position into the order book.</p>
+<li class='bullet'><strong>Why Quants Consider This "Uninformed" Flow:</strong> The liquidation engine does not care about Bitcoin's valuation, news, or technology. It sells mechanically and ruthlessly at any available price purely because of code rules.</li>
+<li class='bullet'><strong>In Our Project:</strong> This is the bedrock of <strong>Alpha 1 (Volume-Conditioned Reversal)</strong>. When an asset experiences a steep price decline accompanied by a large volume spike, it signals that forced liquidations have exhausted themselves—creating an exceptional mean-reversion buying opportunity.</li>
+<br/>
+<hr/>
+<br/>
+<hr/>
+<br/>
+<h3 id='18-fama-french--carhart-umd-up-minus-down'>18. Fama-French / Carhart UMD (Up Minus Down)</h3>
+<li class='bullet'><strong>Plain English:</strong> The premier academic and hedge fund factor representing <strong>Cross-Sectional Momentum</strong>. It measures the return of buying the historical relative winners ("Up") and shorting the historical relative losers ("Down").</li>
+<li class='bullet'><strong>Origins in Academic Finance:</strong></li>
+<p>  * <strong>Fama & French (1993)</strong> revolutionized asset pricing with their 3-Factor Model: Market Beta, Size ($SMB$ - Small Minus Big), and Value ($HML$ - High Minus Low).</p>
+<p>  * <strong>Mark Carhart (1997)</strong> discovered that mutual fund returns could not be explained by those 3 factors alone. He added a <strong>4th factor: Momentum ($UMD$)</strong>, proving that assets with strong past performance continue outperforming in the intermediate term.</p>
+<li class='bullet'><strong>The Famous "1-Month Skip" (The Microstructure Secret):</strong></li>
+<p>  * In equities, Carhart defined $UMD$ using returns from month $t-12$ to month $t-2$.</p>
+<p>  * <strong>Notice what is missing:</strong> Month $t-1$ (the most recent month) is intentionally <strong>SKIPPED</strong>!</p>
+<p>  * <strong>Why Skip the Most Recent Bar?</strong> Because the most recent period is heavily contaminated by <strong>short-term mean reversion</strong> (bid-ask bounce, market maker inventory rebalancing, and liquidity overshooting). If you include the immediate past bar, that short-term reversal drags down your momentum signal.</p>
+<li class='bullet'><strong>How It Directly Drives Our Crypto Project:</strong></li>
+<p>  * This is the exact mathematical trick we applied in <strong>Module 3 & Module 5</strong>!</p>
+<p>  * When we tested raw unlagged momentum on crypto bars, the Sharpe was weak or negative because the immediate 4-hour bar wanted to reverse.</p>
+<p>  * Just like Carhart skipped month $t-1$, we <strong>skipped the immediate 4-hour bar (<code>shift(2)</code>)</strong>. The moment we skipped that bar, our momentum Sharpe ratio skyrocketed from 0 to <strong>1.80</strong>!</p>
+<br/>
+<hr/>
+<br/>
+<h2>Visual Summary: How These Concepts Connect in Our Project</h2>
+<br/>
+<pre><code>
+Universe of Liquid ASSETS (BTC, ETH, SOL...)
+       │
+       ▼
+Compute Statistical Signals:
+  • SHORT-TERM REVERSAL ──► Exploits CASCADING MARGIN LIQUIDATIONS
+  • INTERMEDIATE MOMENTUM ─► Exploits INSTITUTIONAL CAPITAL REALLOCATION
+       │
+       ▼
+CROSS-SECTIONAL Rank across assets at timestamp t
+       │
+       ▼
+DEMEAN Ranks ───────────► Enforces DOLLAR-NEUTRAL (Zero MARKET EXPOSURE / Beta = 0.0)
+       │
+       ▼
+NORMALIZE by Sum(Abs) ──► Sets GROSS LEVERAGE = 1.0 (50% Long, 50% Short)
+       │
+       ▼
+REBALANCE Daily ────────► Slashes Turnover and Execution Friction!
+</code></pre>
+<br/>
+  </div>
+</div>
+<script>
+  const searchInput = document.getElementById('searchInput');
+  searchInput.addEventListener('input', function() {
+    const query = this.value.toLowerCase().trim();
+    const headings = document.querySelectorAll('h3');
+    headings.forEach(h => {
+      let section = [];
+      let el = h;
+      while (el && el.nextElementSibling && el.nextElementSibling.tagName !== 'H3' && el.nextElementSibling.tagName !== 'H2') {
+        section.push(el);
+        el = el.nextElementSibling;
+      }
+      section.push(el);
+      const text = section.map(e => e.innerText).join(' ').toLowerCase();
+      const match = text.includes(query);
+      section.forEach(e => e.style.display = match ? '' : 'none');
+    });
+  });
+</script>
+</body>
+</html>

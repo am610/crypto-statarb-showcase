@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The 5-Step Quant Trading Pipeline: Visual Tutorial Note</title>
+<!-- KaTeX CSS & JS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+<script>
+  function renderKaTeX() {
+    if (typeof renderMathInElement === 'function') {
+      renderMathInElement(document.body, {
+        delimiters: [
+          {left: '$$', right: '$$', display: true},
+          {left: '$', right: '$', display: false},
+          {left: '\\(', right: '\\)', display: false},
+          {left: '\\[', right: '\\]', display: true}
+        ],
+        throwOnError: false
+      });
+    }
+  }
+  document.addEventListener('DOMContentLoaded', renderKaTeX);
+  window.addEventListener('load', renderKaTeX);
+</script>
+
+<style>
+  :root {
+    --bg: #0f172a;
+    --card-bg: #1e293b;
+    --card-border: #334155;
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    --accent-blue: #38bdf8;
+    --accent-green: #10b981;
+    --accent-amber: #fbbf24;
+    --accent-purple: #c084fc;
+    --accent-rose: #f43f5e;
+    --code-bg: #0b1120;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--bg);
+    color: var(--text-main);
+    line-height: 1.6;
+    padding: 40px 20px;
+  }
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+  }
+  header {
+    text-align: center;
+    margin-bottom: 50px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid var(--card-border);
+  }
+  h1 {
+    font-size: 32px;
+    font-weight: 800;
+    margin-bottom: 10px;
+    background: linear-gradient(to right, #38bdf8, #818cf8, #c084fc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .subtitle {
+    font-size: 16px;
+    color: var(--text-muted);
+  }
+  
+  /* Pipeline Overview Flowchart */
+  .flowchart-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .step-pill {
+    flex: 1;
+    min-width: 150px;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    padding: 12px 14px;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 700;
+    transition: transform 0.2s, border-color 0.2s;
+  }
+  .step-pill:hover {
+    transform: translateY(-2px);
+    border-color: var(--accent-blue);
+  }
+  .step-pill .num {
+    display: block;
+    font-size: 11px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .arrow-separator {
+    color: var(--accent-blue);
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  /* Step Cards */
+  .step-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    margin-bottom: 35px;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  }
+  .card-header {
+    padding: 18px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--card-border);
+  }
+  .card-header h2 {
+    font-size: 19px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .badge {
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: #0b1329;
+  }
+  .card-body {
+    padding: 24px;
+  }
+
+  /* Tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 14px;
+  }
+  th, td {
+    padding: 10px 14px;
+    text-align: center;
+    border: 1px solid var(--card-border);
+  }
+  th {
+    background-color: #162038;
+    color: var(--accent-blue);
+    font-weight: 600;
+  }
+  td {
+    background-color: var(--code-bg);
+  }
+  .highlight-cell {
+    font-weight: bold;
+    color: var(--accent-amber);
+  }
+  .green-cell { color: #34d399; font-weight: bold; }
+  .red-cell { color: #f87171; font-weight: bold; }
+
+  /* Explanatory Callouts */
+  .callout {
+    background: #132337;
+    border-left: 4px solid var(--accent-blue);
+    padding: 14px 18px;
+    border-radius: 4px;
+    margin: 16px 0;
+    font-size: 14.5px;
+  }
+  .callout-title {
+    font-weight: 700;
+    color: var(--accent-blue);
+    margin-bottom: 6px;
+  }
+  .code-snippet {
+    background: var(--code-bg);
+    border: 1px solid #1e293b;
+    border-radius: 6px;
+    padding: 14px;
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+    font-size: 13.5px;
+    color: #38bdf8;
+    overflow-x: auto;
+    margin: 12px 0;
+  }
+
+  /* Interactive Switcher */
+  .interactive-box {
+    background: #0b1120;
+    border: 1px dashed var(--accent-blue);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px 0;
+    text-align: center;
+  }
+  .toggle-btn {
+    background: #2563eb;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-top: 10px;
+  }
+  .toggle-btn:hover { background: #1d4ed8; }
+
+  /* Footer */
+  footer {
+    text-align: center;
+    margin-top: 60px;
+    color: var(--text-muted);
+    font-size: 13px;
+  }
+  
+  .katex-display {
+    margin: 12px 0 !important;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <h1>The 5-Step Quantitative Trading Pipeline</h1>
+    <p class="subtitle">A Visual, Concrete Guide to Statistical Arbitrage (Using Real Round Numbers)</p>
+  </header>
+
+  <!-- High-Level Flowchart Navigation -->
+  <div class="flowchart-bar">
+    <div class="step-pill" style="border-top: 3px solid var(--accent-blue);">
+      <span class="num" style="color: var(--accent-blue);">Step 1</span>
+      Raw Prices
+    </div>
+    <div class="arrow-separator">→</div>
+    <div class="step-pill" style="border-top: 3px solid var(--accent-amber);">
+      <span class="num" style="color: var(--accent-amber);">Step 2</span>
+      Asset Returns
+    </div>
+    <div class="arrow-separator">→</div>
+    <div class="step-pill" style="border-top: 3px solid var(--accent-purple);">
+      <span class="num" style="color: var(--accent-purple);">Step 3</span>
+      Portfolio Weights
+    </div>
+    <div class="arrow-separator">→</div>
+    <div class="step-pill" style="border-top: 3px solid var(--accent-rose);">
+      <span class="num" style="color: var(--accent-rose);">Step 4</span>
+      Strategy Returns
+    </div>
+    <div class="arrow-separator">→</div>
+    <div class="step-pill" style="border-top: 3px solid var(--accent-green);">
+      <span class="num" style="color: var(--accent-green);">Step 5</span>
+      Sharpe Ratio
+    </div>
+  </div>
+
+  <!-- STEP 1 -->
+  <div class="step-card">
+    <div class="card-header">
+      <h2><span class="badge" style="background: var(--accent-blue);">Step 1</span> Raw Asset Price Data (The Input)</h2>
+    </div>
+    <div class="card-body">
+      <p>We start with a table of raw prices for our 3 cryptocurrencies (<strong>Bitcoin, Ethereum, Solana</strong>) across 5 timestamps (<strong>T1</strong> to <strong>T5</strong>).</p>
+      
+      <table>
+        <thead>
+          <tr>
+            <th>Timestamp</th>
+            <th>Bitcoin (BTC)</th>
+            <th>Ethereum (ETH)</th>
+            <th>Solana (SOL)</th>
+            <th>Market Event / What Happened</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>T1</strong></td>
+            <td>$100.00</td>
+            <td>$50.00</td>
+            <td>$10.00</td>
+            <td style="text-align: left;">Initial baseline prices.</td>
+          </tr>
+          <tr>
+            <td><strong>T2</strong></td>
+            <td class="green-cell">$110.00</td>
+            <td>$50.00</td>
+            <td class="red-cell">$9.00</td>
+            <td style="text-align: left;">BTC rallies +10%, ETH flat, SOL drops -10%.</td>
+          </tr>
+          <tr>
+            <td><strong>T3</strong></td>
+            <td class="red-cell">$104.50</td>
+            <td class="green-cell">$52.50</td>
+            <td class="green-cell">$9.90</td>
+            <td style="text-align: left;">BTC reverses down -5%, SOL rebounds up +10%!</td>
+          </tr>
+          <tr>
+            <td><strong>T4</strong></td>
+            <td>$114.95</td>
+            <td>$52.50</td>
+            <td>$8.91</td>
+            <td style="text-align: left;">BTC up again, SOL down again.</td>
+          </tr>
+          <tr>
+            <td><strong>T5</strong></td>
+            <td>$103.45</td>
+            <td>$55.12</td>
+            <td>$9.80</td>
+            <td style="text-align: left;">Another reversal wave.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="callout">
+        <div class="callout-title">Python Code:</div>
+        <pre class="code-snippet">prices = pd.read_csv('data/toy_crypto_prices.csv', index_col=0)</pre>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 2 -->
+  <div class="step-card">
+    <div class="card-header">
+      <h2><span class="badge" style="background: var(--accent-amber);">Step 2</span> Calculate Asset Percentage Returns</h2>
+    </div>
+    <div class="card-body">
+      <p>How much did each coin change from one timestamp to the next?</p>
+      
+      <div class="callout">
+        <div class="callout-title">The Exact Formula:</div>
+        $$\text{Return}_t = \frac{\text{Price}_t - \text{Price}_{t-1}}{\mathbf{\text{Price}_{t-1}}} \quad \text{(Always divide by the PREVIOUS price!)}$$
+      </div>
+
+      <p><strong>Let's do the math by hand from T1 to T2:</strong></p>
+      <ul style="margin-left: 20px; margin-top: 8px; line-height: 1.8;">
+        <li><strong>BTC:</strong> $(110 - 100) / 100 = 10 / 100 = \mathbf{+0.10 \ (+10\%)}$</li>
+        <li><strong>ETH:</strong> $(50 - 50) / 50 = 0 / 50 = \mathbf{0.00 \ (0\%)}$</li>
+        <li><strong>SOL:</strong> $(9 - 10) / 10 = -1 / 10 = \mathbf{-0.10 \ (-10\%)}$</li>
+      </ul>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Timestamp</th>
+            <th>BTC Return</th>
+            <th>ETH Return</th>
+            <th>SOL Return</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>T2</strong></td>
+            <td class="green-cell">+0.10 (+10%)</td>
+            <td>0.00 (0%)</td>
+            <td class="red-cell">-0.10 (-10%)</td>
+          </tr>
+          <tr>
+            <td><strong>T3</strong></td>
+            <td class="red-cell">-0.05 (-5%)</td>
+            <td class="green-cell">+0.05 (+5%)</td>
+            <td class="green-cell">+0.10 (+10%)</td>
+          </tr>
+          <tr>
+            <td><strong>T4</strong></td>
+            <td class="green-cell">+0.10 (+10%)</td>
+            <td>0.00 (0%)</td>
+            <td class="red-cell">-0.10 (-10%)</td>
+          </tr>
+          <tr>
+            <td><strong>T5</strong></td>
+            <td class="red-cell">-0.10 (-10%)</td>
+            <td class="green-cell">+0.05 (+5%)</td>
+            <td class="green-cell">+0.10 (+10%)</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="callout">
+        <div class="callout-title">Python Code:</div>
+        <pre class="code-snippet">returns = (prices - prices.shift(1)) / prices.shift(1)
+returns = returns.dropna()</pre>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 3 -->
+  <div class="step-card">
+    <div class="card-header">
+      <h2><span class="badge" style="background: var(--accent-purple); color: white;">Step 3</span> The Core Quant Secret: Dollar-Neutral Weights</h2>
+    </div>
+    <div class="card-body">
+      <p>How do we turn those returns into real hedge fund positions? We use the 3-step <strong>Rank → Demean → Normalize</strong> engine.</p>
+      
+      <div style="background: #0b1120; border: 1px solid #334155; border-radius: 8px; padding: 18px; margin: 16px 0;">
+        <h4 style="color: var(--accent-purple); margin-bottom: 10px;">Pen & Paper Walkthrough at Timestamp T2:</h4>
+        <p>At T2, returns were: <code>SOL = -0.10</code>, <code>ETH = 0.00</code>, <code>BTC = +0.10</code>.</p>
+        
+        <ol style="margin-left: 20px; margin-top: 10px; line-height: 1.8;">
+          <li><strong>RANK from lowest to highest:</strong><br>
+            • SOL is the worst (-10%) → <strong>Rank 1</strong><br>
+            • ETH is in the middle (0%) → <strong>Rank 2</strong><br>
+            • BTC is the best (+10%) → <strong>Rank 3</strong>
+          </li>
+          <li><strong>DEMEAN (Subtract the average rank of 2.0):</strong><br>
+            • SOL: $1 - 2 = \mathbf{-1.0}$<br>
+            • ETH: $2 - 2 = \mathbf{0.0}$<br>
+            • BTC: $3 - 2 = \mathbf{+1.0}$<br>
+            <em>Notice:</em> $-1.0 + 0.0 + 1.0 = \mathbf{0.0}$ (Guarantees <strong>Dollar-Neutrality</strong>: $\sum w_i = 0$).
+          </li>
+          <li><strong>NORMALIZE (Divide by the sum of absolute values):</strong><br>
+            • Sum of absolute values: $|-1| + |0| + |+1| = \mathbf{2.0}$<br>
+            • SOL Weight: $-1.0 / 2.0 = \mathbf{-0.50}$ (Short $0.50 of SOL)<br>
+            • ETH Weight: $0.0 / 2.0 = \mathbf{0.00}$ (No position)<br>
+            • BTC Weight: $+1.0 / 2.0 = \mathbf{+0.50}$ (Long $0.50 of BTC)<br>
+            <em>Notice:</em> $|-0.50| + |0.00| + |+0.50| = \mathbf{1.0}$ (Guarantees <strong>Unit Gross Leverage</strong>: $\sum |w_i| = 1.0$).
+          </li>
+        </ol>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Timestamp</th>
+            <th>BTC Weight</th>
+            <th>ETH Weight</th>
+            <th>SOL Weight</th>
+            <th>Sum of Weights (Net Market Exposure)</th>
+            <th>Sum of Abs Weights (Gross Leverage)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>T2</strong></td>
+            <td class="green-cell">+0.50 (Long)</td>
+            <td>0.00</td>
+            <td class="red-cell">-0.50 (Short)</td>
+            <td class="highlight-cell">0.00 (Dollar-Neutral!)</td>
+            <td class="highlight-cell">1.00 (1x Leverage)</td>
+          </tr>
+          <tr>
+            <td><strong>T3</strong></td>
+            <td class="red-cell">-0.50 (Short)</td>
+            <td>0.00</td>
+            <td class="green-cell">+0.50 (Long)</td>
+            <td class="highlight-cell">0.00 (Dollar-Neutral!)</td>
+            <td class="highlight-cell">1.00 (1x Leverage)</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="callout">
+        <div class="callout-title">Python Code:</div>
+        <pre class="code-snippet">ranks = current_signal.rank()
+centered_ranks = ranks - ranks.mean()
+weights = centered_ranks / centered_ranks.abs().sum()</pre>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 4 -->
+  <div class="step-card">
+    <div class="card-header">
+      <h2><span class="badge" style="background: var(--accent-rose); color: white;">Step 4</span> Calculate Strategy Returns (Did the bets make money?)</h2>
+    </div>
+    <div class="card-body">
+      <p>Now, how much did our portfolio actually make or lose? We must simulate holding the portfolio into the future.</p>
+
+      <div class="callout" style="border-color: var(--accent-rose);">
+        <div class="callout-title" style="color: var(--accent-rose);">Crucial Rule: Prevent Look-Ahead Bias!</div>
+        <p>At <strong>T2</strong>, you made your decision: Long BTC (+0.50), Short SOL (-0.50). You hold this position from T2 to T3.<br>
+        Therefore, your return at <strong>T3</strong> is:
+        $$\text{Strategy Return at T3} = \mathbf{w}_{\text{T2}} \times \mathbf{R}_{\text{T3}}$$
+        That is why in code we write: <code>previous_weights = weights.shift(1)</code>!</p>
+      </div>
+
+      <div style="background: #0b1120; border: 1px solid #334155; border-radius: 8px; padding: 18px; margin: 16px 0;">
+        <h4 style="color: var(--accent-rose); margin-bottom: 10px;">Pen & Paper P&L at Timestamp T3:</h4>
+        <p>Positions decided at T2: <code>BTC = +0.50</code>, <code>SOL = -0.50</code>.</p>
+        <p>Actual returns that happened between T2 and T3: <code>BTC = -5.0%</code>, <code>SOL = +10.0%</code>.</p>
+        <ul style="margin-left: 20px; margin-top: 8px; line-height: 1.8;">
+          <li>BTC P&L: $+0.50 \times (-0.05) = \mathbf{-0.025 \ (-2.5\%)}$</li>
+          <li>ETH P&L: $0.00 \times (+0.05) = \mathbf{0.000}$</li>
+          <li>SOL P&L: $-0.50 \times (+0.10) = \mathbf{-0.050 \ (-5.0\%)}$</li>
+          <li><strong>Total Portfolio Return at T3:</strong> $-0.025 + 0.00 - 0.050 = \mathbf{-0.075 \ (-7.5\%)}$!</li>
+        </ul>
+        <p style="margin-top: 10px; color: var(--accent-amber);">
+          <em>Why did Momentum lose -7.5%?</em> Because the T2 winner (BTC) crashed -5%, and the T2 loser (SOL) rebounded +10%!
+        </p>
+      </div>
+
+      <div class="callout">
+        <div class="callout-title">Python Code:</div>
+        <pre class="code-snippet">previous_weights = weights.shift(1)
+strategy_returns = (previous_weights * returns).sum(axis=1)</pre>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 5 -->
+  <div class="step-card">
+    <div class="card-header">
+      <h2><span class="badge" style="background: var(--accent-green); color: #0b1329;">Step 5</span> The Final Scorecard: The Sharpe Ratio</h2>
+    </div>
+    <div class="card-body">
+      <p>Now that we have our timeline of strategy returns, we compute the final score:</p>
+      
+      <div class="callout" style="border-color: var(--accent-green);">
+        <div class="callout-title" style="color: var(--accent-green);">The Sharpe Formula:</div>
+        $$\text{Sharpe Ratio} = \frac{\text{Average Return}}{\text{Volatility (Risk)}} \times \sqrt{\text{Annualization Factor}}$$
+      </div>
+
+      <div class="interactive-box">
+        <h3 id="modeTitle" style="color: var(--accent-rose); margin-bottom: 10px;">Momentum Strategy Result</h3>
+        <p id="modeDesc" style="color: var(--text-muted);">In this dataset, winners crash and losers bounce, so Momentum loses money steadily:</p>
+        <div style="font-size: 32px; font-weight: 800; color: #f87171; margin: 14px 0;" id="sharpeDisplay">Sharpe: -27.75</div>
+        <p><strong>Click below to see what happens when we flip the sign to REVERSAL:</strong></p>
+        <button class="toggle-btn" id="toggleBtn" onclick="toggleStrategy()">Flip Sign: Multiply by -1.0 (Switch to Reversal)</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>Quantitative Research Laboratory • The Wall Street Quants Project</p>
+    <p style="margin-top: 4px;">Saved at: <code>Crypto_StatArb_Project/QUANT_PIPELINE_TUTORIAL.html</code></p>
+  </footer>
+</div>
+
+<script>
+  let isReversal = false;
+  function toggleStrategy() {
+    isReversal = !isReversal;
+    const title = document.getElementById('modeTitle');
+    const desc = document.getElementById('modeDesc');
+    const display = document.getElementById('sharpeDisplay');
+    const btn = document.getElementById('toggleBtn');
+
+    if (isReversal) {
+      title.innerText = "Reversal Strategy Result (Signal = -1.0 * Return)";
+      title.style.color = "var(--accent-green)";
+      desc.innerText = "By simply flipping the sign, we BUY the oversold losers and SHORT the overbought winners:";
+      display.innerText = "Sharpe: +27.75";
+      display.style.color = "#34d399";
+      btn.innerText = "Flip Back to Momentum (+1.0)";
+      btn.style.background = "#e11d48";
+    } else {
+      title.innerText = "Momentum Strategy Result";
+      title.style.color = "var(--accent-rose)";
+      desc.innerText = "In this dataset, winners crash and losers bounce, so Momentum loses money steadily:";
+      display.innerText = "Sharpe: -27.75";
+      display.style.color = "#f87171";
+      btn.innerText = "Flip Sign: Multiply by -1.0 (Switch to Reversal)";
+      btn.style.background = "#2563eb";
+    }
+  }
+</script>
+
+</body>
+</html>
