@@ -16,7 +16,6 @@
 | 📊 **Interactive Research Showcase** | [**View Research Lab →**](https://am610.github.io/crypto-statarb-showcase/) | End-to-end interactive research paper, backtest curves & performance tables |
 | 🗺️ **3D Parameter Landscape** | [**Explore Terrain →**](https://am610.github.io/crypto-statarb-showcase/terrain/) | Visual parameter sensitivity map & horizon scan landscape |
 | 🎥 **Video Walkthrough (YouTube)** | [**Watch on YouTube →**](https://www.youtube.com/watch?v=EmjOIXBKQcE) | 10-minute narrated institutional tour of the research pipeline |
-| 📦 **Download Video (1080p MP4)** | [**GitHub Release v1 →**](https://github.com/am610/crypto-statarb-showcase/releases/tag/video-v1) | Direct 1080p video file download (86 MB) |
 
 ### 🎥 Video Presentation: 10-Minute Executive Walkthrough
 [![Statistical Arbitrage in Cryptocurrencies — Video Walkthrough](https://img.youtube.com/vi/EmjOIXBKQcE/maxresdefault.jpg)](https://www.youtube.com/watch?v=EmjOIXBKQcE)
