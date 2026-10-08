@@ -101,17 +101,18 @@ A critical research finding is that **execution friction dominates high-frequenc
 
 ```
 Crypto_StatArb_Project/
-├── app.py                                    # Live Web Portfolio Scanner & Alpha Engine (Flask + Tailwind + Chart.js)
-├── portfolio_scanner.py                      # Interactive CLI Portfolio Factor Diagnostic & Alpha Attributor
-├── 01_Crypto_StatArb_Research_Lab.ipynb      # Primary institutional research lab with train/test split & factor regressions
-├── 02_Crypto_StatArb_Research_Lab_Simplified.ipynb # Step-by-step educational research lab with explicit code
-├── 03_Hands_On_Minimal_Toy_Tutorial.ipynb    # Minimal 5-step practice sandbox with round numbers
-├── QUANT_PIPELINE_TUTORIAL.html              # Interactive visual guide to the 5-step quant trading pipeline
-├── QUANT_DICTIONARY.html                     # Searchable quant finance dictionary with live search
-├── project_flowchart.png                     # 300-DPI architecture flowchart
-├── requirements.txt                          # Python dependencies for local use and cloud hosting
-├── README.md                                 # Institutional executive summary & documentation
-└── data/                                     # Historical 4-hour bar data from Binance (2022–2024)
+├── app.py                                              # Live Web Portfolio Scanner & Alpha Engine (Flask + Tailwind + Chart.js)
+├── portfolio_scanner.py                                # Interactive CLI Portfolio Factor Diagnostic & Alpha Attributor
+├── 01_Crypto_StatArb_Research_Lab.ipynb                # Original Full-Sample Research Lab (Comprehensive 9-Module Pipeline)
+├── 02_Crypto_StatArb_Research_Lab_Simplified.ipynb     # Original Step-by-Step Educational Lab (Plain Pandas & Detailed Walkthrough)
+├── 03_Hands_On_Minimal_Toy_Tutorial.ipynb              # Minimal 5-Step Practice Sandbox (Toy Data with Round Numbers)
+├── 04_Crypto_StatArb_Institutional_Validation.ipynb    # Institutional Out-of-Sample Validation (Train/Test Split, sqrt(252), OLS vs BTC)
+├── QUANT_PIPELINE_TUTORIAL.html                        # Interactive visual guide to the 5-step quant trading pipeline
+├── QUANT_DICTIONARY.html                               # Searchable quant finance dictionary with live search
+├── project_flowchart.png                               # 300-DPI architecture flowchart
+├── requirements.txt                                    # Python dependencies for local use and cloud hosting
+├── README.md                                           # Institutional executive summary & documentation
+└── data/                                               # Historical 4-hour bar data from Binance (2022–2024)
     ├── crypto_prices_4h.csv
     ├── crypto_volumes_4h.csv
     └── crypto_quote_volumes_4h.csv
