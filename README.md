@@ -107,6 +107,7 @@ Crypto_StatArb_Project/
 ├── 02_Crypto_StatArb_Research_Lab_Simplified.ipynb     # Original Step-by-Step Educational Lab (Plain Pandas & Detailed Walkthrough)
 ├── 03_Hands_On_Minimal_Toy_Tutorial.ipynb              # Minimal 5-Step Practice Sandbox (Toy Data with Round Numbers)
 ├── 04_Crypto_StatArb_Institutional_Validation.ipynb    # Institutional Out-of-Sample Validation (Train/Test Split, sqrt(252), OLS vs BTC)
+├── 05_Crypto_StatArb_Machine_Learning_Extension.ipynb  # Machine Learning Extension (Ridge, XGBoost, GMM Volatility Regimes, IC Analysis)
 ├── QUANT_PIPELINE_TUTORIAL.html                        # Interactive visual guide to the 5-step quant trading pipeline
 ├── QUANT_DICTIONARY.html                               # Searchable quant finance dictionary with live search
 ├── project_flowchart.png                               # 300-DPI architecture flowchart
