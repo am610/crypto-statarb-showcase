@@ -5,3 +5,8 @@ __pycache__/
 *.mp4
 test_handwritten.jpeg
 Untitled.ipynb
+# Internal video production assets
+presentation_assets/
+plots/
+export_video_presentation_assets.py
+VIDEO_STORYBOARD_AND_GOOGLE_FLOW_GUIDE.md
