@@ -97,6 +97,19 @@ A critical research finding is that **execution friction dominates high-frequenc
 
 ---
 
+## Machine Learning System Architecture (Notebook 05)
+
+<p align="center">
+  <img src="ml_system_architecture.png" alt="Machine Learning System Architecture" width="100%" />
+</p>
+
+Following modern quantitative machine learning literature, **Notebook 05** introduces an end-to-end ML system architecture:
+1. **Cross-Sectional Standardization:** Normalizes features cross-sectionally at each 4-hour timestamp to strip out systemic crypto market drift.
+2. **Dual-Branch Modeling:** Benchmarks supervised factor synthesis (Ridge L2 Shrinkage vs. XGBoost Decision Trees) against unsupervised volatility regime detection (2-State Gaussian Mixture Model).
+3. **Adaptive Capital Routing:** Solves the reversal turnover trap by dynamically activating volume-conditioned mean reversion exclusively during genuine liquidation panics (13.7% of the sample), achieving a **0.90 Full-Sample Net Sharpe** with **zero beta to Bitcoin**.
+
+---
+
 ## Project Structure
 
 ```
@@ -110,7 +123,8 @@ Crypto_StatArb_Project/
 ├── 05_Crypto_StatArb_Machine_Learning_Extension.ipynb  # Machine Learning Extension (Ridge, XGBoost, GMM Volatility Regimes, IC Analysis)
 ├── QUANT_PIPELINE_TUTORIAL.html                        # Interactive visual guide to the 5-step quant trading pipeline
 ├── QUANT_DICTIONARY.html                               # Searchable quant finance dictionary with live search
-├── project_flowchart.png                               # 300-DPI architecture flowchart
+├── project_flowchart.png                               # 300-DPI architecture flowchart (Baseline Research)
+├── ml_system_architecture.png                         # 300-DPI publication ML system architecture diagram (Notebook 05)
 ├── requirements.txt                                    # Python dependencies for local use and cloud hosting
 ├── README.md                                           # Institutional executive summary & documentation
 └── data/                                               # Historical 4-hour bar data from Binance (2022–2024)

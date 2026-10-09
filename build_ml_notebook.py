@@ -60,7 +60,42 @@ This notebook explores the **natural quantitative progression**:
 3. **Module 3: Supervised Machine Learning (Ridge Regularization vs. XGBoost Trees)**
 4. **Module 4: The Quant Reality Check: Overfitting, Regime Non-Stationarity & Tree Degradation**
 5. **Module 5: Unsupervised Regime-Switching Machine Learning (Gaussian Mixture Model - GMM)**
-6. **Module 6: Comprehensive Model Comparison & Quantitative Interview Playbook**""")
+6. **Module 6: Comprehensive Model Comparison & Quantitative Interview Playbook**
+
+---
+
+## Machine Learning Paper System Architecture
+
+![End-to-End ML System Architecture](ml_system_architecture.png)
+
+```mermaid
+flowchart TD
+    subgraph L1["1. Raw Ingestion Layer"]
+        A["10 Liquid USDT Pairs (2022–2024)<br>6,569 4h bars (24/7/365)"]
+    end
+    subgraph L2["2. Feature Engineering"]
+        B["Multi-Horizon Momentum (12h to 21d)<br>1-Bar Lag to prevent bounce drag"]
+        C["Liquidation Volume Z-Score & Realized Volatility"]
+    end
+    subgraph L3["3. Cross-Sectional Normalization"]
+        D["Per-Timestamp Z-Scoring across Assets<br>(Eliminates Common Market Beta)"]
+        E["Target: Forward 24h Return Rank"]
+    end
+    subgraph L4["4. Machine Learning Dual-Branch"]
+        F["Branch A: Supervised Factor Synthesis<br>Ridge L2 vs. XGBoost Trees"]
+        G["Branch B: Unsupervised Regime Detection<br>2-State GMM on Market Volatility"]
+    end
+    subgraph L5["5. Adaptive Regime Routing"]
+        H{"GMM State?"}
+        H -->|State 0: Quiet Drift| I["21-Day Lagged Momentum"]
+        H -->|State 1: Panic Cascade| J["Volume-Conditioned Reversal"]
+    end
+    subgraph L6["6. Execution & Attribution"]
+        K["Dollar-Neutral Normalization (Long +50%, Short -50%)<br>Daily Rebalance @ 7 bps Maker Fees"]
+        L["OLS Regression: Beta = -0.0037, Alpha = +16.54%"]
+    end
+    L1 --> L2 --> L3 --> L4 --> L5 --> L6
+```""")
 
 # --- MODULE 1: FORMULATION ---
 add_md("""---
