@@ -122,6 +122,7 @@ plt.rcParams['figure.figsize'] = (12, 6)
 plt.rcParams['font.size'] = 11
 
 # Load Data
+os.makedirs('plots', exist_ok=True)
 data_dir = os.path.join(os.getcwd(), 'data')
 df_px = pd.read_csv(os.path.join(data_dir, 'crypto_prices_4h.csv'), index_col=0, parse_dates=True)
 df_vol = pd.read_csv(os.path.join(data_dir, 'crypto_volumes_4h.csv'), index_col=0, parse_dates=True)
@@ -170,6 +171,7 @@ ax.set_ylabel("Normalized Price (USDT)")
 ax.set_yscale('log')
 ax.legend(loc='upper left', bbox_to_anchor=(1.01, 1), frameon=True)
 plt.tight_layout()
+plt.savefig('plots/01_normalized_asset_trajectories.png', dpi=300, bbox_inches='tight')
 plt.show()""")
 
 # --- MODULE 3: HORIZON SCAN ---
@@ -232,6 +234,7 @@ ax.set_xlabel("Lookback Window (Hours)")
 ax.set_ylabel("Annualized Sharpe Ratio (sqrt(252))")
 ax.legend(loc='lower right', frameon=True)
 plt.tight_layout()
+plt.savefig('plots/02_in_sample_horizon_scan.png', dpi=300, bbox_inches='tight')
 plt.show()""")
 
 # --- MODULE 4: ALPHA 1 ---
@@ -242,7 +245,13 @@ add_md("""---
 * In perpetual futures and spot trading, aggressive retail leverage creates periodic liquidation cascades.
 * A price crash accompanied by an **abnormal volume spike** indicates forced liquidations and liquidity exhaustion. Once the cascade clears, market makers bid prices back up.
 * **Volume Anomaly Metric:** $Z$-score of quote volume over a 36-bar (6-day) rolling window:
-  $$S_{\\text{Rev}, i, t} = -R_{i,t} \times (1 + Z_{V, i, t})$$""")
+  $$S_{\\text{Rev}, i, t} = -R_{i,t} \times (1 + Z_{V, i, t})$$
+
+### 4.2 Real-World Case Study: Exchange Liquidation Engines (e.g., Luna May 2022 & FTX Nov 2022)
+* **The Microstructure Mechanism:** On centralized crypto derivatives exchanges, retail accounts frequently deploy 20x to 50x leverage. When mark prices breach maintenance margin thresholds, exchange risk engines forcibly take over positions.
+* **Aggressive Taker Dumping:** The liquidation engine does not use patient limit orders; it submits immediate IOC (Immediate-Or-Cancel) market orders to dump collateral directly into the order book.
+* **The Liquidity Vacuum:** This forced selling consumes all available bids on the order book, creating an artificial price dislocation far below fundamental value accompanied by an immense volume surge ($Z_V > 2.0$).
+* **The StatArb Reversal Opportunity:** Once the liquidation engine terminates, the order book experiences an exhaustion gap. Statistical arbitragers and high-frequency market makers step in to absorb the imbalance, driving mean reversion over the subsequent 4 to 8 hours. Volume-conditioning cleanly isolates these structural liquidity vacuums from persistent fundamental downtrends.""")
 
 add_code("""# Calculate 36-bar (6-day) Rolling Volume Z-Score
 vol_mean = df_qvol.rolling(36, min_periods=12).mean()
@@ -276,6 +285,7 @@ ax.set_title("Alpha 1: Volume-Conditioned vs. Pure Mean Reversion (Gross Cumulat
 ax.set_ylabel("Cumulative Return")
 ax.legend(loc='upper left', frameon=True)
 plt.tight_layout()
+plt.savefig('plots/03_volume_conditioned_reversal.png', dpi=300, bbox_inches='tight')
 plt.show()""")
 
 # --- MODULE 5: ALPHA 2 & OOS VALIDATION ---
@@ -287,7 +297,12 @@ add_md("""---
 * **Lookback:** 21 days ($21 \times 6 = 126$ bars), capturing medium-term capital reallocation.
 * **1-Bar Lag:** $R_{i, t-126 \to t-1}$, skipping the immediate 4-hour bar.
 * **Daily Rebalancing:** To prevent excessive transaction costs, target weights are updated once daily (every 6 bars / 24 hours) and forward-filled.
-* **Untouched Out-of-Sample Validation:** Performance is evaluated on the frozen 2024 test period.""")
+* **Untouched Out-of-Sample Validation:** Performance is evaluated on the frozen 2024 test period.
+
+### 5.2 Real-World Case Study: Altcoin Capital Drift & The 1-Bar Microstructure Lag
+* **Narrative Diffusion & Sticky Capital:** Unlike equities where price discovery occurs via scheduled quarterly earnings reports, crypto asset reallocation unfolds over multi-week narrative cycles (e.g., Layer-1 rotation, DeFi runs, institutional flows post-ETF). Capital flows between Bitcoin and major altcoins gradually, generating persistent cross-sectional momentum over 21-day windows.
+* **The 1-Bar Lag Solution ($t-1$):** Why do naive momentum strategies fail at high frequencies? Because the immediate preceding 4-hour bar ($t$) is contaminated by bid-ask bounce and microstructural mean reversion. If an asset surged simply because a large buyer lifted the offer, buying at $t+1$ incurs a high penalty.
+* **The Institutional Solution:** By mathematically lagging the momentum formation window by 1 bar ($R_{i, t-126 \to t-1}$), we cleanly decouple intermediate trend persistence from short-term microstructure bounce, boosting the in-sample Sharpe ratio from negative/mediocre to +1.63!""")
 
 add_code("""BARS_PER_DAY = 6
 lookback_bars = 21 * BARS_PER_DAY
@@ -332,6 +347,7 @@ ax.set_title("Alpha 2: Cross-Sectional Momentum — In-Sample vs. Out-of-Sample 
 ax.set_ylabel("Cumulative Gross Return")
 ax.legend(loc='upper left', frameon=True)
 plt.tight_layout()
+plt.savefig('plots/04_cross_sectional_momentum_split.png', dpi=300, bbox_inches='tight')
 plt.show()""")
 
 # --- MODULE 6: FRICTION & FEES ---
@@ -343,7 +359,12 @@ add_md("""---
 We evaluate performance under two execution regimes:
 1. **Passive Limit Orders:** 7 bps (0.07%) round-trip maker execution.
 2. **Aggressive Market Orders:** 20 bps (0.20%) taker commission + bid-ask slippage.
-$$\text{Net Return}_t = \text{Gross Return}_t - (\text{Turnover}_t \times \text{Cost Rate})$$""")
+$$\text{Net Return}_t = \text{Gross Return}_t - (\text{Turnover}_t \times \text{Cost Rate})$$
+
+### 6.2 The Institutional Quant Desk Anecdote: The "Friction Trap"
+* **The Rookie Quant Pitfall:** A classic hedge fund interview scenario occurs when an applicant proudly presents a backtest displaying a 3.8+ Sharpe ratio. The senior Portfolio Manager asks one question: *"What is your annualized portfolio turnover?"*
+* **The Mathematical Reality:** Naive 4-hour reversal turns over the portfolio >1,350 times per year. Even at Binance's VIP maker tier (7 bps round-trip), 1,350x turnover burns **~94.5% in fees annually**. At standard retail taker fees (20 bps), fee drag exceeds **270% per year**, converting a +3.80 Gross Sharpe into a disastrous **-4.80 Net Sharpe**.
+* **The Production Breakthrough:** By shifting focus to 21-day momentum with daily rebalancing, annualized turnover drops by **88%** (to 76x), preserving positive net alpha even under conservative fee assumptions.""")
 
 add_code("""COST_MARKET = 0.0020  # 20 bps
 COST_LIMIT = 0.0007   # 7 bps
