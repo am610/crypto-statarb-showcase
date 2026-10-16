@@ -203,9 +203,9 @@ $$\text{Sharpe} = \frac{\text{Mean}(R_d)}{\text{Std}(R_d)} \times \sqrt{252}$$
 
 ---
 
-## Quant Portfolio Manager (PM) Interview Playbook
+## Key Methodological Defenses & Research FAQ
 
-When presenting this project in hedge fund interviews (e.g., Chicago Trading Company, Citadel Securities, Jump Trading, Jane Street):
+Institutional research FAQ and technical design decisions:
 
 1. **How do you know the Sharpe isn't the result of parameter selection?**  
    All parameters (21-day momentum lookback, 1-bar skip, volume $Z$-score, daily rebalancing cadence) were chosen strictly on the **2022–2023 training sample**. The 2024 data was left completely untouched until the model was frozen. In the out-of-sample test period, momentum achieved a **0.87 Gross Sharpe** and **0.57 Net Sharpe** (10.67% net return at 7 bps), confirming the anomaly persists out-of-sample.
